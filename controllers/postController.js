@@ -10,17 +10,12 @@ function index(req,res){
 };
 
 function show(req,res){
-    const postsSlug = Number(req.params.slug)
-    const post = posts.find(post => post.slug === postsSlug)
+    const postsSlug = req.params.slug
+    const post = forum.find(post => post.slug === postsSlug)
     console.log(post)
-    if(!post){
-        return res.Status(404).json({
-            error: "404 not Found",
-            message: "post not found"
-        })
     }
-    res.json(pizza)
-};
+    res.json(post)
+
 
 function store(req,res){
     res.send(`Store new post`)
