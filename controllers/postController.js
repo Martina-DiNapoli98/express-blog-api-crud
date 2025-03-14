@@ -1,9 +1,25 @@
+const forum = require("../data/forum")
+
 function index(req,res){
-    res.send(`Return all posts`)
+    let filteredForum = forum;
+    if(req.query.slug){
+        console.log('Filter the result');
+        filteredForum = forum.filter(post => post.slug.includes(req.query.slug))
+    }
+    res.json(filteredForum)
 };
 
 function show(req,res){
-    res.send(`Show the post with slug ${req.params.slug}`)
+    const postsSlug = Number(req.params.slug)
+    const post = posts.find(post => post.slug === postsSlug)
+    console.log(post)
+    if(!post){
+        return res.Status(404).json({
+            error: "404 not Found",
+            message: "post not found"
+        })
+    }
+    res.json(pizza)
 };
 
 function store(req,res){
