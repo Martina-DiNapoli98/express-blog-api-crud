@@ -1,12 +1,20 @@
 const forum = require("../data/forum")
 
 function index(req,res){
-    let filteredForum = forum;
+    /* let filteredForum = forum;
     if(req.query.slug){
         console.log('Filter the result');
         filteredForum = forum.filter(post => post.slug.includes(req.query.slug))
+    }; */
+    let filteredForum = forum;
+    if(req.query.tags){
+        console.log(`Filter the result`);
+        filteredForum = forum.filter(post => post.tags.includes(req.query.tags))
     }
-    res.json(filteredForum)
+
+    res.json(filteredForum);
+
+
 };
 
 function show(req,res){
