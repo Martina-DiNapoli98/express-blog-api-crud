@@ -13,8 +13,9 @@ function show(req,res){
     const postsSlug = req.params.slug
     const post = forum.find(post => post.slug === postsSlug)
     console.log(post)
-    }
     res.json(post)
+    }
+    
 
 
 function store(req,res){
@@ -30,7 +31,21 @@ function modify(req,res){
 };
 
 function destroy(req,res){
-    res.send(`Delete the post with slug ${req.params.slug}`)
+    const postsSlug = req.params.slug
+    const post = forum.find(post => post.slug === postsSlug)
+
+    if(!post){
+        res.status(404);
+
+        return res.json({
+            status : 404,
+            error :"not found",
+            message:"post not found"
+        })
+    }
+    forum.splice(forum.indexOf(post), 1)
+    console.log(forum)
+    res.sendStatus(204)
 };
 
 module.exports = {index,show,store,update,modify,destroy}
