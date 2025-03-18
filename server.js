@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3003;
 const postsRouter = require("./routers/posts")
+const errorsHandler = require("./middlewares/serverError")
 
 app.use(express.json());
 
@@ -24,3 +25,5 @@ app.use('/api/v1/posts', postsRouter);
 app.post('/',(req, res)=>{
     console.log(req.body)
 })
+
+app.use(errorsHandler);
