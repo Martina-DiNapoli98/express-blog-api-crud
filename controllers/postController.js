@@ -23,7 +23,13 @@ function show(req,res){
     const postsSlug = req.params.slug
     const post = forum.find(post => post.slug === postsSlug)
     console.log(post)
-    res.json(post)
+    if(!post){
+        return res.status(404).json({
+            error: '404',
+            message: 'Post not found'
+        })
+    }
+    res.json(post);
 };
     
 function store(req,res){
@@ -42,7 +48,23 @@ function store(req,res){
 };
 
 function update(req,res){
-    res.send(`Update the post with slug ${req.params.slug}`)
+    const postsSlug = req.params.slug
+    const post = forum.find(post => post.slug === postsSlug)
+    console.log(post)
+    if(!post){
+        return res.status(404).json({
+            error: '404',
+            message: 'Post not found'
+        })
+    }
+    post.title = req.body.title
+    post.slug = req.body.title.toLowerCase().replace(/\s+/g, '-')
+    post.content = req.body.content
+    post.image = req.body.image
+    post.tags = req.body.tags
+
+    console.log(forum)
+    res.json(post)
 };
 
 function modify(req,res){
