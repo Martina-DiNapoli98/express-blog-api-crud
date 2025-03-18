@@ -3,6 +3,8 @@ const app = express();
 const port = 3003;
 const postsRouter = require("./routers/posts")
 
+app.use(express.json());
+
 /* listening */
 
 app.listen(port,()=>{
@@ -17,3 +19,8 @@ app.get('/',(req,res)=>{
 
 
 app.use('/api/v1/posts', postsRouter);
+
+
+app.post('/',(req, res)=>{
+    console.log(req.body)
+})

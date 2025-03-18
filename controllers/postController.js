@@ -1,5 +1,7 @@
 const forum = require("../data/forum")
 
+
+/* functions */
 function index(req,res){
     /* let filteredForum = forum;
     if(req.query.slug){
@@ -22,12 +24,21 @@ function show(req,res){
     const post = forum.find(post => post.slug === postsSlug)
     console.log(post)
     res.json(post)
-    }
+};
     
-
-
 function store(req,res){
-    res.send(`Store new post`)
+    let newSlug = req.body.title.toLowerCase().replace(/\s+/g, '-')
+    const newPosts = {
+        title : req.body.title,
+        slug: newSlug,
+        image : req.body.image,
+        content : req.body.content,
+        tags : req.body.tags
+    }
+    forum.push(newPosts);
+    console.log(forum);
+    res.status(201);
+    res.json(newPosts)
 };
 
 function update(req,res){
@@ -56,4 +67,5 @@ function destroy(req,res){
     res.sendStatus(204)
 };
 
-module.exports = {index,show,store,update,modify,destroy}
+/* exports module */
+module.exports = {index,show,store,update,modify,destroy};
