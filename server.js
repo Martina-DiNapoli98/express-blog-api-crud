@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 const port = 3003;
-const postsRouter = require("./routers/posts")
-const errorsHandler = require("./middlewares/serverError")
+const postsRouter = require("./routers/posts");
+const errorsHandler = require("./middlewares/serverError");
+const notFound = require("./middlewares/error_404")
+
 
 app.use(express.json());
 
@@ -27,3 +29,5 @@ app.post('/',(req, res)=>{
 })
 
 app.use(errorsHandler);
+
+app.use(notFound)
